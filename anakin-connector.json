@@ -1,0 +1,862 @@
+{
+  "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
+  "name": "Anakin",
+  "id": "io.anakin.connectors.Anakin.v1",
+  "version": 1,
+  "description": "Scrape, crawl, map and search the web and get Markdown or JSON back.",
+  "metadata": {
+    "keywords": [
+      "anakin",
+      "web scraping",
+      "crawl",
+      "search",
+      "markdown"
+    ]
+  },
+  "documentationRef": "https://github.com/Anakin-Inc/camunda-connector-anakin#readme",
+  "category": {
+    "id": "connectors",
+    "name": "Connectors"
+  },
+  "appliesTo": [
+    "bpmn:Task"
+  ],
+  "elementType": {
+    "value": "bpmn:ServiceTask"
+  },
+  "engines": {
+    "camunda": "^8.9"
+  },
+  "icon": {
+    "contents": "data:image/png;base64,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"
+  },
+  "groups": [
+    {
+      "id": "authentication",
+      "label": "Authentication"
+    },
+    {
+      "id": "operation",
+      "label": "Operation"
+    },
+    {
+      "id": "input",
+      "label": "Input"
+    },
+    {
+      "id": "timeout",
+      "label": "Connection timeout"
+    },
+    {
+      "id": "output",
+      "label": "Output mapping"
+    },
+    {
+      "id": "error",
+      "label": "Error handling"
+    },
+    {
+      "id": "retries",
+      "label": "Retries"
+    }
+  ],
+  "properties": [
+    {
+      "type": "Hidden",
+      "value": "io.camunda:http-json:1",
+      "binding": {
+        "type": "zeebe:taskDefinition",
+        "property": "type"
+      }
+    },
+    {
+      "id": "authentication.type",
+      "type": "Hidden",
+      "value": "apiKey",
+      "binding": {
+        "name": "authentication.type",
+        "type": "zeebe:input"
+      }
+    },
+    {
+      "id": "authentication.apiKeyLocation",
+      "type": "Hidden",
+      "value": "headers",
+      "binding": {
+        "name": "authentication.apiKeyLocation",
+        "type": "zeebe:input"
+      }
+    },
+    {
+      "id": "authentication.name",
+      "type": "Hidden",
+      "value": "X-API-Key",
+      "binding": {
+        "name": "authentication.name",
+        "type": "zeebe:input"
+      }
+    },
+    {
+      "id": "authentication.value",
+      "label": "Anakin API key",
+      "group": "authentication",
+      "type": "String",
+      "value": "{{secrets.ANAKIN_API_KEY}}",
+      "feel": "optional",
+      "binding": {
+        "name": "authentication.value",
+        "type": "zeebe:input"
+      },
+      "constraints": {
+        "notEmpty": true
+      },
+      "description": "Store the key as a connector secret named ANAKIN_API_KEY. Create a key at <a href=\"https://anakin.io/dashboard\" target=\"_blank\">anakin.io/dashboard</a>."
+    },
+    {
+      "id": "anakinOperation",
+      "label": "Operation",
+      "group": "operation",
+      "type": "Dropdown",
+      "value": "scrape",
+      "binding": {
+        "name": "anakinOperation",
+        "type": "zeebe:input"
+      },
+      "constraints": {
+        "notEmpty": true
+      },
+      "choices": [
+        {
+          "name": "Scrape URL",
+          "value": "scrape"
+        },
+        {
+          "name": "Get scrape result",
+          "value": "getScrape"
+        },
+        {
+          "name": "AI search",
+          "value": "search"
+        },
+        {
+          "name": "Start crawl",
+          "value": "startCrawl"
+        },
+        {
+          "name": "Get crawl result",
+          "value": "getCrawl"
+        },
+        {
+          "name": "Start site map",
+          "value": "startMap"
+        },
+        {
+          "name": "Get site map result",
+          "value": "getMap"
+        },
+        {
+          "name": "Start agentic search",
+          "value": "startAgenticSearch"
+        },
+        {
+          "name": "Get agentic search result",
+          "value": "getAgenticSearch"
+        }
+      ]
+    },
+    {
+      "id": "anakinUrl",
+      "label": "URL",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinUrl",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "scrape",
+          "startCrawl",
+          "startMap"
+        ],
+        "type": "simple"
+      },
+      "description": "Page to scrape, or the start URL of a crawl or site map.",
+      "feel": "optional",
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "anakinPrompt",
+      "label": "Prompt",
+      "group": "input",
+      "type": "Text",
+      "binding": {
+        "name": "anakinPrompt",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "search",
+          "startAgenticSearch"
+        ],
+        "type": "simple"
+      },
+      "description": "Question or research task in natural language.",
+      "feel": "optional",
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "anakinJobId",
+      "label": "Job ID",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinJobId",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "getScrape",
+          "getCrawl",
+          "getMap",
+          "getAgenticSearch"
+        ],
+        "type": "simple"
+      },
+      "description": "Returned when the job started: <code>=anakinResult.jobId</code> for crawl and site map, <code>=anakinResult.job_id</code> for agentic search, <code>=anakinResult.id</code> for scrape.",
+      "feel": "optional",
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "anakinFormats",
+      "label": "Formats",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinFormats",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "scrape",
+        "type": "simple"
+      },
+      "description": "FEEL list. Any of markdown, html, cleanedHtml, links, images, summary, screenshot, screenshotFullPage, json.",
+      "value": "=[\"markdown\"]",
+      "feel": "required",
+      "optional": true
+    },
+    {
+      "id": "anakinLimitSearch",
+      "label": "Result limit",
+      "group": "input",
+      "type": "Number",
+      "binding": {
+        "name": "anakinLimit",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "search",
+        "type": "simple"
+      },
+      "value": 5,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinMaxPages",
+      "label": "Max pages",
+      "group": "input",
+      "type": "Number",
+      "binding": {
+        "name": "anakinMaxPages",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startCrawl",
+        "type": "simple"
+      },
+      "value": 10,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinDepthCrawl",
+      "label": "Depth",
+      "group": "input",
+      "type": "Number",
+      "binding": {
+        "name": "anakinDepth",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startCrawl",
+        "type": "simple"
+      },
+      "value": 1,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinIncludePatterns",
+      "label": "Include patterns",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinIncludePatterns",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startCrawl",
+        "type": "simple"
+      },
+      "description": "FEEL list of URL patterns to follow, for example <code>=[\"/blog/*\"]</code>.",
+      "feel": "required",
+      "optional": true
+    },
+    {
+      "id": "anakinExcludePatterns",
+      "label": "Exclude patterns",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinExcludePatterns",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startCrawl",
+        "type": "simple"
+      },
+      "description": "FEEL list of URL patterns to skip.",
+      "feel": "required",
+      "optional": true
+    },
+    {
+      "id": "anakinLimitMap",
+      "label": "URL limit",
+      "group": "input",
+      "type": "Number",
+      "binding": {
+        "name": "anakinLimit",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startMap",
+        "type": "simple"
+      },
+      "description": "Maximum 5000.",
+      "value": 100,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinDepthMap",
+      "label": "Depth",
+      "group": "input",
+      "type": "Number",
+      "binding": {
+        "name": "anakinDepth",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startMap",
+        "type": "simple"
+      },
+      "description": "Maximum 5.",
+      "value": 2,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinSearch",
+      "label": "Filter",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinSearch",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startMap",
+        "type": "simple"
+      },
+      "description": "Only return URLs that match this text.",
+      "feel": "optional",
+      "optional": true
+    },
+    {
+      "id": "anakinIncludeSubdomains",
+      "label": "Include subdomains",
+      "group": "input",
+      "type": "Boolean",
+      "binding": {
+        "name": "anakinIncludeSubdomains",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startMap",
+        "type": "simple"
+      },
+      "value": false,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinSchema",
+      "label": "Output schema",
+      "group": "input",
+      "type": "Text",
+      "binding": {
+        "name": "anakinSchema",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startAgenticSearch",
+        "type": "simple"
+      },
+      "description": "Optional JSON Schema, as a FEEL context, for the structured result. Inferred when empty.",
+      "feel": "required",
+      "optional": true
+    },
+    {
+      "id": "anakinCountry",
+      "label": "Country",
+      "group": "input",
+      "type": "String",
+      "binding": {
+        "name": "anakinCountry",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "scrape",
+          "startCrawl"
+        ],
+        "type": "simple"
+      },
+      "description": "Two-letter country code to fetch from.",
+      "value": "us",
+      "feel": "optional",
+      "optional": true
+    },
+    {
+      "id": "anakinForceFresh",
+      "label": "Force fresh",
+      "group": "input",
+      "type": "Boolean",
+      "binding": {
+        "name": "anakinForceFresh",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "scrape",
+        "type": "simple"
+      },
+      "description": "Skip the cache and fetch the page again.",
+      "value": false,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinUseBrowser",
+      "label": "Use browser",
+      "group": "input",
+      "type": "Boolean",
+      "binding": {
+        "name": "anakinUseBrowser",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "scrape",
+          "startCrawl",
+          "startMap"
+        ],
+        "type": "simple"
+      },
+      "description": "Render with a headless browser. Use for pages built with JavaScript.",
+      "value": false,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "anakinUseBrowserAgentic",
+      "label": "Use browser",
+      "group": "input",
+      "type": "Boolean",
+      "binding": {
+        "name": "anakinUseBrowser",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startAgenticSearch",
+        "type": "simple"
+      },
+      "value": true,
+      "feel": "static",
+      "optional": true
+    },
+    {
+      "id": "method.post",
+      "type": "Hidden",
+      "value": "POST",
+      "binding": {
+        "name": "method",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "scrape",
+          "search",
+          "startCrawl",
+          "startMap",
+          "startAgenticSearch"
+        ],
+        "type": "simple"
+      }
+    },
+    {
+      "id": "method.get",
+      "type": "Hidden",
+      "value": "GET",
+      "binding": {
+        "name": "method",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "getScrape",
+          "getCrawl",
+          "getMap",
+          "getAgenticSearch"
+        ],
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.scrape",
+      "type": "Hidden",
+      "value": "https://api.anakin.io/v1/url-scraper/scrape",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "scrape",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.getScrape",
+      "type": "Hidden",
+      "value": "=\"https://api.anakin.io/v1/url-scraper/\" + anakinJobId",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "getScrape",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.search",
+      "type": "Hidden",
+      "value": "https://api.anakin.io/v1/search",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "search",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.startCrawl",
+      "type": "Hidden",
+      "value": "https://api.anakin.io/v1/crawl",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startCrawl",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.getCrawl",
+      "type": "Hidden",
+      "value": "=\"https://api.anakin.io/v1/crawl/\" + anakinJobId",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "getCrawl",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.startMap",
+      "type": "Hidden",
+      "value": "https://api.anakin.io/v1/map",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startMap",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.getMap",
+      "type": "Hidden",
+      "value": "=\"https://api.anakin.io/v1/map/\" + anakinJobId",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "getMap",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.startAgenticSearch",
+      "type": "Hidden",
+      "value": "https://api.anakin.io/v1/agentic-search",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startAgenticSearch",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "url.getAgenticSearch",
+      "type": "Hidden",
+      "value": "=\"https://api.anakin.io/v1/agentic-search/\" + anakinJobId",
+      "binding": {
+        "name": "url",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "getAgenticSearch",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "body.scrape",
+      "type": "Hidden",
+      "value": "={url: anakinUrl, formats: anakinFormats, country: anakinCountry, useBrowser: anakinUseBrowser, forceFresh: anakinForceFresh}",
+      "binding": {
+        "name": "body",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "scrape",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "body.search",
+      "type": "Hidden",
+      "value": "={prompt: anakinPrompt, limit: anakinLimit}",
+      "binding": {
+        "name": "body",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "search",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "body.startCrawl",
+      "type": "Hidden",
+      "value": "={url: anakinUrl, maxPages: anakinMaxPages, depth: anakinDepth, includePatterns: anakinIncludePatterns, excludePatterns: anakinExcludePatterns, country: anakinCountry, useBrowser: anakinUseBrowser}",
+      "binding": {
+        "name": "body",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startCrawl",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "body.startMap",
+      "type": "Hidden",
+      "value": "={url: anakinUrl, limit: anakinLimit, depth: anakinDepth, includeSubdomains: anakinIncludeSubdomains, search: anakinSearch, useBrowser: anakinUseBrowser}",
+      "binding": {
+        "name": "body",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startMap",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "body.startAgenticSearch",
+      "type": "Hidden",
+      "value": "={prompt: anakinPrompt, schema: anakinSchema, useBrowser: anakinUseBrowser}",
+      "binding": {
+        "name": "body",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "equals": "startAgenticSearch",
+        "type": "simple"
+      }
+    },
+    {
+      "id": "ignoreNullValues",
+      "type": "Hidden",
+      "value": "=true",
+      "binding": {
+        "name": "ignoreNullValues",
+        "type": "zeebe:input"
+      },
+      "condition": {
+        "property": "anakinOperation",
+        "oneOf": [
+          "scrape",
+          "search",
+          "startCrawl",
+          "startMap",
+          "startAgenticSearch"
+        ],
+        "type": "simple"
+      }
+    },
+    {
+      "id": "connectionTimeoutInSeconds",
+      "type": "Hidden",
+      "value": "=20",
+      "binding": {
+        "name": "connectionTimeoutInSeconds",
+        "type": "zeebe:input"
+      }
+    },
+    {
+      "id": "readTimeoutInSeconds",
+      "label": "Read timeout in seconds",
+      "group": "timeout",
+      "type": "Number",
+      "value": 120,
+      "feel": "static",
+      "binding": {
+        "name": "readTimeoutInSeconds",
+        "type": "zeebe:input"
+      },
+      "constraints": {
+        "notEmpty": true
+      }
+    },
+    {
+      "id": "resultVariable",
+      "label": "Result variable",
+      "group": "output",
+      "type": "String",
+      "optional": true,
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "resultVariable"
+      },
+      "description": "Stores the whole HTTP response, including headers. The result expression is usually enough."
+    },
+    {
+      "id": "resultExpression",
+      "label": "Result expression",
+      "group": "output",
+      "type": "Text",
+      "feel": "required",
+      "value": "={anakinResult: response.body}",
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "resultExpression"
+      }
+    },
+    {
+      "id": "errorExpression",
+      "label": "Error expression",
+      "group": "error",
+      "type": "Text",
+      "feel": "required",
+      "optional": true,
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "errorExpression"
+      },
+      "description": "Turn errors into BPMN errors. See the <a href=\"https://docs.camunda.io/docs/components/connectors/use-connectors/\" target=\"_blank\">documentation</a>."
+    },
+    {
+      "id": "retryCount",
+      "label": "Retries",
+      "group": "retries",
+      "type": "String",
+      "value": "3",
+      "feel": "optional",
+      "binding": {
+        "type": "zeebe:taskDefinition",
+        "property": "retries"
+      }
+    },
+    {
+      "id": "retryBackoff",
+      "label": "Retry backoff",
+      "group": "retries",
+      "type": "String",
+      "value": "PT30S",
+      "binding": {
+        "type": "zeebe:taskHeader",
+        "key": "retryBackoff"
+      }
+    }
+  ]
+}
